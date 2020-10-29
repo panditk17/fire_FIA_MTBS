@@ -71,33 +71,26 @@ mtbs_data_alld<-cbind(mtbs_data_allc[,23],mtbs_data_allc[,26],mtbs_data_allc[,29
                       mtbs_data_allc[,47])
 
 library(matrixStats)
-mtbs_data_alld$sevmin<-rowMins(mtbs_data_alld)
-sevminn<-min(sevmin)
-
-rowMaxs(mtbs_data_alld[1:2172,],na.rm=TRUE)
 
 jjj<-as.matrix(mtbs_data_alld)
 kkk<-as.data.frame(rowRanges(jjj,na.rm=TRUE))
-kkk$diff<-kkk[,2]-kkk[,1]
+kkk$mean<-rowMeans(jjj,na.rm=TRUE)
+kkk$center<-jjj[,5]
+kkk$range<-kkk[,2]-kkk[,1]
+colnames(kkk)<-c("min_sev","max_sev","mean_sev","cen_sev","range_sev")
 
 
+mtbs_data_alle<-cbind(mtbs_data_allc,kkk)
+mtbs_data_allf <- mtbs_data_alle[ which(mtbs_data_alle$range_sev < 3),]
+mtbs_data_allg <- mtbs_data_allf[ !is.na(mtbs_data_allf$cen_sev)]
 
-mtbs_data_alld$min<-mean(mtbs_data_alld[,1:9],na.rm=FALSE)
 
-mtbs_data_allc$sevmax<-max(c(mtbs_data_allc$sev111,mtbs_data_allc$sev222,mtbs_data_allc$sev333,
-                            mtbs_data_allc$sev444,mtbs_data_allc$sev555,mtbs_data_allc$sev666,
-                            mtbs_data_allc$sev777,mtbs_data_allc$sev888,mtbs_data_allc$sev999))
-
-dim(mtbs_data_alld)
-mtbs_data_allc$sevmean<-(mtbs_data_allc$sev111+mtbs_data_allc$sev222+mtbs_data_allc$sev333+
-                             mtbs_data_allc$sev444+mtbs_data_allc$sev555+mtbs_data_allc$sev666+
-                             mtbs_data_allc$sev777+mtbs_data_allc$sev888+mtbs_data_allc$sev999)
 
 # select only GA data from 2013
 
 #mtbs_data_FL_13 <- mtbs_data_all[which(mtbs_data_all$statewfire ==12 & mtbs_data_all$MTBSfireyear==2013),]
 
-mtbs_data_FL <- mtbs_data_allc[which(mtbs_data_allc$statewfire==12),]
+mtbs_data_FL <- mtbs_data_allg[which(mtbs_data_allg$statewfire==12),]
 
 
 # join MTBS GA data with FIA data
@@ -116,7 +109,7 @@ fl_ga<-us_states[us_states$group %in% c(9),]
 
 ggplot() 
   
-  ggplot(data=mtbs_plots_FL, aes(x=LON, y=LAT,colour=as.factor(MTBSfireyear))) + 
+  ggplot(data=mtbs_plots_FL, aes(x=LON, y=LAT,colour=as.factor(cen_sev))) + 
     geom_point(shape=19,size=2) +
     scale_color_hue(l=60) +
   geom_polygon(data = fl_ga, aes(x = long, y = lat, group = group), 
@@ -155,7 +148,11 @@ i=2005
   a<- min(mtbs_plots_FL_allyr$MTBSfireyear)
   b<- max(mtbs_plots_FL_allyr$MTBSfireyear)
   
-  pret2<-data.frame(matrix(ncol = 176, nrow = 0))
+  colnn<-length(mtbs_plots_FL_allyr)
+  
+  
+  
+  pret2<-data.frame(matrix(ncol = colnn, nrow = 0))
   
   for(i in a:b) {  
   # i-th element of `u1` squared into `i`-th position of `usq`
@@ -165,7 +162,7 @@ i=2005
   pret1b <- pret1a[which(pret1a$MEASYEAR.y < i),]
   
  
-  pret2<-rbind(pret1b,pret2)
+  pret2<-rbind(pret2,pret1b)
   
 }
 
@@ -180,7 +177,7 @@ pre_sub14 <- pre_sub12[which(pre_sub12$n == 1),]
 
 pre_lat<-aggregate(LAT.x~nplotid, pret2, FUN=max)
 pre_lon<-aggregate(LON.x~nplotid, pret2, FUN=max)
-pre_sev<-aggregate(sevmean~nplotid, pret2, FUN=max)
+pre_sev<-aggregate(cen_sev~nplotid, pret2, FUN=max)
 
 pre_vars1 <- merge(pre_lat, pre_lon, by="nplotid")
 pre_vars2 <- merge(pre_vars1, pre_sev, by="nplotid")
@@ -196,12 +193,9 @@ mtbs_unique_pre_all<-data.frame(count(pre_vars2,nplotid))
 mtbs_unique_pre_1<-data.frame(count(mtbs_pre_vars1,nplotid))
 mtbs_unique_pre_2<-data.frame(count(mtbs_pre_vars2,nplotid))
 
-
-
-mtbs_pre_both$av_sev<-mtbs_pre_both$sevmean/9
 ggplot() 
 
-ggplot(data=mtbs_pre_both, aes(x=LON.x, y=LAT.x,colour=as.factor(av_sev))) + 
+ggplot(data=mtbs_pre_both, aes(x=LON.x, y=LAT.x,colour=as.factor(cen_sev))) + 
   geom_point(shape=19,size=2) +
   scale_color_hue(l=60) +
   geom_polygon(data = fl_ga, aes(x = long, y = lat, group = group), 
@@ -213,7 +207,7 @@ ggplot(data=mtbs_pre_both, aes(x=LON.x, y=LAT.x,colour=as.factor(av_sev))) +
 
 # work on post fire plots
 
-post2<-data.frame(matrix(ncol = 160, nrow = 0))
+post2<-data.frame(matrix(ncol = colnn, nrow = 0))
 
 for(i in a:b) {  
   # i-th element of `u1` squared into `i`-th position of `usq`
@@ -235,7 +229,7 @@ post_sub14 <- post_sub12[which(post_sub12$n == 1),]
 
 post_lat<-aggregate(LAT.x~nplotid, post2, FUN=max)
 post_lon<-aggregate(LON.x~nplotid, post2, FUN=max)
-post_sev<-aggregate(severity~nplotid, post2, FUN=max)
+post_sev<-aggregate(cen_sev~nplotid, post2, FUN=max)
 
 post_vars1 <- merge(post_lat, post_lon, by="nplotid")
 post_vars2 <- merge(post_vars1, post_sev, by="nplotid")
@@ -268,44 +262,96 @@ mtbs_prepos_all <- rbind(mtbs_prepos_11,mtbs_prepos_12,mtbs_prepos_21,
                          mtbs_prepos_22)
 mtbs_uni_prepos_all<-data.frame(count(mtbs_prepos_all,nplotid))
 
+n_11<-nrow(mtbs_uni_prepos_11)
+n_12<-nrow(mtbs_uni_prepos_12)
+n_21<-nrow(mtbs_uni_prepos_21)
+n_22<-nrow(mtbs_uni_prepos_22)
+
+lab_11<-paste0("n = ",n_11)
+lab_12<-paste0("n = ",n_12)
+lab_21<-paste0("n = ",n_21)
+lab_22<-paste0("n = ",n_22)
+
+
+lab_sub11<-data.frame(count(mtbs_prepos_11,cen_sev.y,nplotid))
+lab_sub11a<-data.frame(count(lab_sub11,cen_sev.y))
+
+lab_11_1<-paste0("low (",lab_sub11a[1,2], ")")
+lab_11_2<-paste0("med (",lab_sub11a[2,2], ")")
+lab_11_3<-paste0("high (",lab_sub11a[3,2], ")")
+
+
+lab_sub12<-data.frame(count(mtbs_prepos_12,cen_sev.y,nplotid))
+lab_sub12a<-data.frame(count(lab_sub12,cen_sev.y))
+
+lab_12_1<-paste0("low (",lab_sub12a[1,2], ")")
+lab_12_2<-paste0("med (",lab_sub12a[2,2], ")")
+lab_12_3<-paste0("high (",lab_sub12a[3,2], ")")
+
+
+
+lab_sub21<-data.frame(count(mtbs_prepos_21,cen_sev.y,nplotid))
+lab_sub21a<-data.frame(count(lab_sub21,cen_sev.y))
+
+lab_21_1<-paste0("low (",lab_sub21a[1,2], ")")
+lab_21_2<-paste0("med (",lab_sub21a[2,2], ")")
+lab_21_3<-paste0("high (",lab_sub21a[3,2], ")")
+
+lab_sub22<-data.frame(count(mtbs_prepos_22,cen_sev.y,nplotid))
+lab_sub22a<-data.frame(count(lab_sub22,cen_sev.y))
+
+lab_22_1<-paste0("low (",lab_sub22a[1,2], ")")
+lab_22_2<-paste0("med (",lab_sub22a[2,2], ")")
+lab_22_3<-paste0("high (",lab_sub22a[3,2],")")
 
 
 library(gridExtra)
-p1<- ggplot(data=mtbs_prepos_11, aes(x=LON.x.x, y=LAT.x.x)) + 
+p1<- ggplot(data=mtbs_prepos_11, aes(x=LON.x.x, y=LAT.x.x,color=as.factor(cen_sev.y))) + 
   geom_point(shape=19,size=2) +
-  scale_color_hue(l=60) +
+  scale_color_manual(name="fire severity",labels=c(lab_11_1, lab_11_2,lab_11_3),
+                     values=c("1"="bisque","2"="orange","3"="red")) +
+  #scale_color_hue(l=60) +
   geom_polygon(data = fl_ga, aes(x = long, y = lat, group = group), 
                fill=NA, color='gray',alpha=0.5, size=0.5,inherit.aes = FALSE,
                show.legend=TRUE)+
   ggtitle("Before 1 and after 1")+
-  geom_text(x=-87, y=27, label="n = 162")
+  annotate("text",x=-87, y=27, label=lab_11)
 
-p2<- ggplot(data=mtbs_prepos_12, aes(x=LON.x.x, y=LAT.x.x)) + 
+p2<- ggplot(data=mtbs_prepos_12, aes(x=LON.x.x, y=LAT.x.x,color=as.factor(cen_sev.y))) + 
   geom_point(shape=19,size=2) +
-  scale_color_hue(l=60) +
+  scale_color_manual(name="fire severity",labels=c(lab_12_1, lab_12_2,lab_12_3),
+                     values=c("1"="bisque","2"="orange","3"="red")) +
+#  scale_color_hue(l=60) +
   geom_polygon(data = fl_ga, aes(x = long, y = lat, group = group), 
                fill=NA, color='gray',alpha=0.5, size=0.5,inherit.aes = FALSE,
                show.legend=TRUE)+
   ggtitle("Before 1 and after 2")+
-  geom_text(x=-87, y=27, label="n = 96")
+  annotate("text",x=-87, y=27, label=lab_12) 
 
-p3<- ggplot(data=mtbs_prepos_21, aes(x=LON.x.x, y=LAT.x.x)) + 
+
+
+p3<- ggplot(data=mtbs_prepos_21, aes(x=LON.x.x, y=LAT.x.x,color=as.factor(cen_sev.y))) + 
   geom_point(shape=19,size=2) +
-  scale_color_hue(l=60) +
+  scale_color_manual(name="fire severity",labels=c(lab_21_1, lab_21_2,lab_21_3),
+                     values=c("1"="bisque","2"="orange","3"="red")) +
+ # scale_color_hue(l=60) +
   geom_polygon(data = fl_ga, aes(x = long, y = lat, group = group), 
                fill=NA, color='gray',alpha=0.5, size=0.5,inherit.aes = FALSE,
                show.legend=TRUE)+
   ggtitle("Before 2 and after 1")+
-  geom_text(x=-87, y=27, label="n = 44")
+  annotate("text" , x=-87, y=27, label=lab_21)
 
-p4<- ggplot(data=mtbs_prepos_22, aes(x=LON.x.x, y=LAT.x.x)) + 
+p4<- ggplot(data=mtbs_prepos_22, aes(x=LON.x.x, y=LAT.x.x,color=as.factor(cen_sev.y)
+                                      )) + 
   geom_point(shape=19,size=2) +
-  scale_color_hue(l=60) +
-  geom_polygon(data = fl_ga, aes(x = long, y = lat, group = group), 
+  scale_color_manual(name="fire severity",labels=c(lab_22_1, lab_22_2,lab_22_3),
+                     values=c("1"="bisque","2"="orange","3"="red")) +
+  geom_polygon(data = fl_ga, aes(x = long, y = lat), 
                fill=NA, color='gray',alpha=0.5, size=0.5,inherit.aes = FALSE,
                show.legend=TRUE)+
   ggtitle("Before 2 and after 2")+
-geom_text(x=-87, y=27, label="n = 32")
-
+annotate("text",x=-87, y=27, label=lab_22)
+#+   labs(text = lab_22_3) 
+#+   theme(plot.tag.position = c(0.92, 0.50))
 
 grid.arrange(p1,p2,p3,p4,nrow=2)
