@@ -1,5 +1,1 @@
-# fire_forest_ecosystem
-
-testing
-
-this line is written in Rstudio to test push
+# This repository contains source codes used in the analysis of effects of fire and other disturbances using FIA and MTBS data
