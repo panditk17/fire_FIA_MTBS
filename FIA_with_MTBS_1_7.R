@@ -158,8 +158,10 @@ age_tr2$rep_stand_all<-ifelse(age_tr2$STDAGE.2<=age_tr2$REMPER.2,1,0)
 
 tr<-age_tr2
 
+# select trees measured after 2001
 tr<-tr[which(tr$MEASYEAR.2>2001),]
 
+# create code for disturbances
 cut_agnt <- c(10)
 
 tr$CUT <- ifelse(tr$TRTCD1.2 %in% cut_agnt | tr$TRTCD2.2 %in% cut_agnt 
