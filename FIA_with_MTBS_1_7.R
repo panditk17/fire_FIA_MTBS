@@ -41,7 +41,7 @@ trees_fire_11$since_fire<-trees_fire_11$MEASYEAR.2 - trees_fire_11$r_fire_yr
 table_11<-data.frame(count(trees_fire_11,severity,STATUSCD.1,STATUSCD.2))
 colnames(table_11)<- c("MTBS severity","Pre-fire status","Post-fire status","n")
 
-
+# Make a table showing shift in tree status between two inventories
 df2 <- trees_fire_11 %>% 
   group_by(severity,STATUSCD.1, STATUSCD.2) %>% 
   tally() %>% 
