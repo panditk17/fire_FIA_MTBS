@@ -3,9 +3,14 @@
 # read plot data with FIA disturbance
 rm(list=ls())
 
+# read FIA data with plot level information
 pdam15<- readRDS("plots_with_disturb_FIA.RDS")
+
+# read seedling data 
 seed<-read.csv("repeated_seedling_table.csv")
 
+
+#expand variables to desired units
 pdam15$AGB.1<-(pdam15$AGB.1*453.6*2.471)/1000000
 pdam15$AGB.2<-(pdam15$AGB.2*453.6*2.471)/1000000
 pdam15$BALIVE.1<-(pdam15$BALIVE.1*30.48*30.48*2.471)/10000
