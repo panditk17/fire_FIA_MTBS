@@ -1,5 +1,6 @@
 ### plots based on disturbances from FIA data
 
+# uses only western plots 
 setwd('C:/Karuns_documents/fire_MTBS/all_disturbance/disturbance')
 
 rm(list=ls())
