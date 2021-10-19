@@ -12,6 +12,7 @@ memory.limit(size=100000000)
 
 sdam2<-read.csv("new_plot_data.csv")
 
+# limit stand size to less than 250
 sdam3<-sdam2[which(sdam2$STDAGE_1<250),]
 
 
@@ -24,8 +25,11 @@ sdam3$STDORG<-as.factor(sdam3$STDORGCD_1)
 sdam3$DISCOD<-as.factor(sdam3$dist_shift)
 
 sdam3$DISCOD<-droplevels(sdam3$DISCOD)
+
+#limit post-disturbance AGB to less than 50
 sdam41<-sdam3[which(sdam3$AGB.2<50),]
 
+# limit seedling density to less than 50000
 sdam42<-sdam41[which(sdam41$seed_count.2<50000),]
 
 
