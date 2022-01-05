@@ -106,7 +106,8 @@ data_all_seed<-na.omit(data_all_seed1)
 
 
 library(randomForest)
-### severe
+### set random seed for training and validation data
+### repeat it to get same split for other model runs
 set.seed(51)
 
 train_all_agb<-sample(1:nrow(data_all_agb),0.80*(nrow(data_all_agb)))
