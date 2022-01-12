@@ -1,3 +1,4 @@
+## file to identify pre and post mtbs plots based on fia data
 setwd('C:/Karuns_documents/fire_MTBS/fire_forest_ecosystem')
 
 rm(list=ls())
