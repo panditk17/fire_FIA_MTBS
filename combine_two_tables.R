@@ -1,3 +1,4 @@
+## codes to combine two FIA tables using common fields
 setwd("C:/Karun_documents/pine_disease/pine_disease_dir/fusiform")
 
 rm(list=ls())
