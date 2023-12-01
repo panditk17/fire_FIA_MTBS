@@ -1,3 +1,4 @@
+## fia analysis
 setwd('C:/Karuns_documents/fire_MTBS/fire_forest_ecosystem')
 
 rm(list=ls())
