@@ -1,3 +1,4 @@
+## data from MTBS analyzed for severity
 setwd('C:/Karun_documents/fire_MTBS/fire_forest_ecosystem')
 
 rm(list=ls())
