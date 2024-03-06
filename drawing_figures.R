@@ -1,4 +1,4 @@
-# code for creating figures
+# code for creating figures based on disturbance analysis
 
 # type=c("loblolly")
 # orgcd=c("natural")
