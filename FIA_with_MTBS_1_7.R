@@ -10,7 +10,7 @@ library(reshape2)
 # tree data with repeated measurements
 tr<- readRDS("three_states_tree_repeated.RDS")
 
-# MTBS fire data
+# read MTBS fire data
 fire<-read.csv("../MTBS_fire_FIa_plots.csv")  
 
 
