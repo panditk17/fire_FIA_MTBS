@@ -36,6 +36,7 @@ sdam42<-sdam41[which(sdam41$seed_count.2<50000),]
 table33<-count(sdam42,damtrt1,damtrt2,dist_shift_new)
 colnames(table33)<-c("Previous inventory","Current Inventory","combination","n")
 
+## find shifts in damage codes
 sdam42$dist_shift_short<-ifelse(sdam42$damtrt2=="F" & sdam42$damtrt1=="ND","ND.F",
                              ifelse(sdam42$damtrt2=="F" & sdam42$damtrt1=="I","I.F",
                               ifelse(sdam42$damtrt2=="F" & sdam42$damtrt1=="F","F.F",
