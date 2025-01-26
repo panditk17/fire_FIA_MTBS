@@ -1,4 +1,5 @@
-### plots based on disturbances from FIA data
+### plots based on disturbances from FIA data2-2-2023
+## codes modified 
 
 # uses only western plots 
 setwd('C:/Karuns_documents/fire_MTBS/all_disturbance/disturbance')
