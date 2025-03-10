@@ -1,6 +1,7 @@
 ## codes to identify plots matching MTBS data
 setwd('C:/Karuns_documents/fire_MTBS/fire_forest_ecosystem')
 
+## remove previous files in workspace
 rm(list=ls())
 
 #test with FL and GA plots
