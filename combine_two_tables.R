@@ -1,4 +1,5 @@
 ## codes to combine two FIA tables using common fields
+## K. Pandit
 
 ## set directory
 setwd("C:/Karun_documents/pine_disease/pine_disease_dir/fusiform")
