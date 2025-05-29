@@ -1,4 +1,5 @@
 ## file to identify pre and post mtbs plots based on fia data
+## last modified 2022
 setwd('C:/Karuns_documents/fire_MTBS/fire_forest_ecosystem')
 
 rm(list=ls())
