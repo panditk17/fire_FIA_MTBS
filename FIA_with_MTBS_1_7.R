@@ -1,6 +1,8 @@
 ## fia analysis
 setwd('C:/Karuns_documents/fire_MTBS/fire_forest_ecosystem')
 
+## 
+
 
 ## remove all the files in the directory
 rm(list=ls())
