@@ -1,5 +1,6 @@
 ### plots based on disturbances from FIA data2-2-2023
 ## codes modified 
+## new version of the code 06/12/2023
 
 # uses only western plots 
 setwd('C:/Karuns_documents/fire_MTBS/all_disturbance/disturbance')
@@ -455,4 +456,5 @@ p11<-ggplot() +
 
 p14<-grid.arrange(p8,p11,nrow=2)
 dev.off()
+
 
