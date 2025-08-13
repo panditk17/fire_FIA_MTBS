@@ -1,4 +1,5 @@
 ## codes to identify plots matching MTBS data
+## updates on 2/2025
 setwd('C:/Karuns_documents/fire_MTBS/fire_forest_ecosystem')
 
 ## remove previous files in workspace
@@ -303,5 +304,6 @@ write.csv(mtbs_uni_prepos_11,"../data/plots_measured_11_FL.csv")
 write.csv(mtbs_uni_prepos_12,"../data/plots_measured_12_FL.csv")
 write.csv(mtbs_uni_prepos_21,"../data/plots_measured_21_FL.csv")
 write.csv(mtbs_uni_prepos_22,"../data/plots_measured_22_FL.csv")
+
 
 
