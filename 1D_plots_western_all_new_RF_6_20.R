@@ -1,4 +1,4 @@
-### plots based on disturbances from FIA data2-2-2023
+### plots based on disturbances from FIA data revised as below 2-2-2023
 ## codes modified 
 ## new version of the code 06/12/2023
 
@@ -456,5 +456,6 @@ p11<-ggplot() +
 
 p14<-grid.arrange(p8,p11,nrow=2)
 dev.off()
+
 
 
