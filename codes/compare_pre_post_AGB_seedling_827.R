@@ -1,5 +1,6 @@
 ### plots based on disturbances from FIA data only
 ## Different codes for MTBS data
+## ******************************
 
 # setwd('C:/Karuns_documents/fire_MTBS/all_disturbance/disturbance')
 
