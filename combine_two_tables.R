@@ -4,7 +4,7 @@
 ## set directory
 setwd("C:/Karun_documents/pine_disease/pine_disease_dir/fusiform")
 
-rm(list=ls())
+## read saved data
 sr<-readRDS("../FIA_pines_with_fusiform_form_2013_2020.RDS")
 
 
