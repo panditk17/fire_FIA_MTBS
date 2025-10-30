@@ -1,9 +1,6 @@
 ## fia analysis
 setwd('C:/Karuns_documents/fire_MTBS/fire_forest_ecosystem')
 
-## 
-
-
 ## remove all the files in the directory
 rm(list=ls())
 
@@ -999,4 +996,5 @@ AGBch3<-merge(splot11,splot12,by="since_fire")
 ggplot(AGBch3, aes(AGBch3[,1])) +
   geom_line(aes(y=AGBch3[,2]), colour="orange") +
   geom_line(aes(y=AGBch3[,3]), colour="red2") + theme_bw()
+
 
