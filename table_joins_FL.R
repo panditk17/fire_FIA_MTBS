@@ -1,3 +1,4 @@
+# codes to join MTBS and FIA
 setwd('C:/Karun_documents/fire_MTBS/fire_forest_ecosystem')
 
 rm(list=ls())
