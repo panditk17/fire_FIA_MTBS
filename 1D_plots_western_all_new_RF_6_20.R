@@ -63,7 +63,7 @@ sdam42$phy_fac<-as.factor(sdam42$phy_fac)
 
 sdam42$dist_shift_sh<-as.factor(sdam42$dist_shift_short)
 
-
+## use ecoregion section to categorize data
 ecosel<-read.csv("eco_select.csv")
 
 sdam42$ecocode <- trimws(sdam42$Spl_1, which = c("left"))
