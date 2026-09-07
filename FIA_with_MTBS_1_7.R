@@ -1,4 +1,4 @@
-## fia analysis
+## fia analysis with MTBS data
 setwd('.../..')
 
 ## remove all the files in the directory
