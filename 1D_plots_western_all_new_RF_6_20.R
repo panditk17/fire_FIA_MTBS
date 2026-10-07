@@ -54,6 +54,7 @@ table34<-count(sdam42,damtrt1,damtrt2,dist_shift_sh)
 
 table34<-count(sdam42,dist_shift_sh)
 
+# convert aspect into different metrics
 sdam42$aspect_shift<-sdam42$ASPECT.x-45
 
 sdam42$aspect_trans_a<-cos((sdam42$aspect_shift)*(pi/180))
